@@ -1,11 +1,13 @@
 const express = require('express');
 const UAParser = require('ua-parser-js');
-const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get('/', async (req, res) => {
-  res.send('https://click-logger-8fizk9g3j-mabals-projects.vercel.app');
+app.get('/', (req, res) => {
+  res.send('https://click-logger-8fizk9g3j-mabals-projects.vercel.app Use /track');
+});
+
+app.get('/track', async (req, res) => {
   const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   const userAgent = req.headers['user-agent'];
   const parser = new UAParser(userAgent);
@@ -16,15 +18,17 @@ app.get('/', async (req, res) => {
 
   let location = {};
   try {
-    const geo = await fetch(`https://ipapi.co/${ip}/json/`);
-    location = await geo.json();
+    const geoRes = await fetch(`https://ipapi.co/${ip}/json/`);
+    location = await geoRes.json();
   } catch (err) {
-    location = { error: 'Failed to get location' };
+    location = { error: 'Location fetch failed' };
   }
 
   res.json({ ip, userAgent, os, browser, location });
 });
 
 app.listen(port, () => {
-  console.log(`✅ Running on http://localhost:${port}/track`);
+  console.log(`✅ Server running on http://localhost:${port}/track`);
 });
+
+module.exports = app;
