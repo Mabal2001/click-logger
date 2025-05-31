@@ -25,5 +25,5 @@ app.get('/track', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`✅ Running on http://localhost:${port}/track`);
+  console.log(https://click-logger-theta.vercel.app/);
 });
