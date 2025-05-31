@@ -4,7 +4,8 @@ const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get('/track', async (req, res) => {
+app.get('/', async (req, res) => {
+  res.send('https://click-logger-8fizk9g3j-mabals-projects.vercel.app');
   const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   const userAgent = req.headers['user-agent'];
   const parser = new UAParser(userAgent);
@@ -25,5 +26,5 @@ app.get('/track', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(https://click-logger-theta.vercel.app/);
+  console.log(`✅ Running on http://localhost:${port}/track`);
 });
